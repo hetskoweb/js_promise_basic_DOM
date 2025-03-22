@@ -17,17 +17,17 @@ const promise2 = new Promise((resolve, reject) => {
   }, 3000);
 });
 
-async function logoClick() {
-  try {
-    const result = await Promise.race([promise1, promise2]);
-
-    message.textContent = result;
-    document.body.appendChild(message);
-  } catch (error) {
-    message.textContent = error.message;
-    message.classList.add('error-message');
-    document.body.appendChild(message);
-  }
+function logoClick() {
+  Promise.race([promise1, promise2])
+    .then((result) => {
+      message.textContent = result;
+      document.body.appendChild(message);
+    })
+    .catch((error) => {
+      message.textContent = error.message;
+      message.classList.add('error-message');
+      document.body.appendChild(message);
+    });
 }
 
 logoClick();
